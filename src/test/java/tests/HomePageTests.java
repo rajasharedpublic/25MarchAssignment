@@ -4,9 +4,7 @@ import helper.Browser;
 import helper.TestHelper;
 import org.testng.annotations.*;
 
-/**
- * Created by opantsjoha on 02/07/2017.
- */
+
 public class HomePageTests extends TestHelper {
 
     Browser browser;
