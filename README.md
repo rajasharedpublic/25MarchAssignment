@@ -6,6 +6,10 @@ Run the file - regressions_testng.xml
 
 test case have been explianed under test() in tests.TestCase File
 
+API response : To hit GET API and get the response
+Compare Util- Compare Json and XML response
+ReadFile - Read line by line from two different file
+
 
 ## Viewing the results
 All reports [html] are in: target/surefire-reports/index.html
