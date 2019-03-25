@@ -21,9 +21,17 @@ import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.Difference;
 import org.xml.sax.SAXException;
 
-//Read more: https://javarevisited.blogspot.com/2017/04/how-to-compare-two-xml-files-in-java.html#ixzz5j9zTa5cR
-
 public class compareUtil {
+
+    static Object File1;
+    static Object File2;
+   public compareUtil(Object File1, Object File2) {
+
+    this.File1 = File1;
+    this.File2 = File2;
+
+
+   }
 
 
     public static Object JsonComparator(Object obj1, Object obj2) throws JSONException {
@@ -55,7 +63,7 @@ public class compareUtil {
                 for (String fieldName : names) {
                     Object obj1FieldValue = jsonObj1.get(fieldName);
                     Object obj2FieldValue = jsonObj2.get(fieldName);
-                    Object obj = jsonsEqual(obj1FieldValue, obj2FieldValue);
+                    Object obj = JsonComparator(obj1FieldValue, obj2FieldValue);
                     if (obj != null && !checkObjectIsEmpty(obj))
                         diff.put(fieldName, obj);
                 }
@@ -70,7 +78,7 @@ public class compareUtil {
                 for (int i = 0; i < obj1Array.length(); i++) {
                     Object obj = null;
                     matchFound: for (int j = 0; j < obj2Array.length(); j++) {
-                        obj = jsonsEqual(obj1Array.get(i), obj2Array.get(j));
+                        obj = JsonComparator(obj1Array.get(i), obj2Array.get(j));
                         if (obj == null) {
                             break matchFound;
                         }
@@ -101,11 +109,11 @@ public class compareUtil {
         return false;
     }
 
-    public static Object XMLComparator( String filepath1, String filepath2) throws FileNotFoundException {
+    public static Object XMLComparator( Object filepath1, Object filepath2) throws FileNotFoundException {
 
         // reading two xml file to compare in Java program
-        FileInputStream fis1 = new FileInputStream(filepath1);
-        FileInputStream fis2 = new FileInputStream(filepath2);
+        FileInputStream fis1 = new FileInputStream(filepath1.toString());
+        FileInputStream fis2 = new FileInputStream(filepath2.toString());
 
         // using BufferedReader for improved performance
     BufferedReader source = new BufferedReader(new InputStreamReader(fis1));
@@ -128,6 +136,18 @@ public class compareUtil {
         return differences;
     }
 
+    public static void printDifferences(List differences){
+       int totalDifferences = differences.size();
+       if(totalDifferences>1) {
+           output(true);
+       }
+       else {
+           output(false);
+       }
+
+   }
+
+
     public static List compareXML(Reader source, Reader target) throws SAXException, IOException{
         //creating Diff instance to compare two XML files
 
@@ -138,19 +158,16 @@ public class compareUtil {
         return detailXmlDiff.getAllDifferences();
 
     }
-        //
-        public static void printDifferences(List differences){
-            int totalDifferences = differences.size();
-            System.out.println("===============================");
-            System.out.println("Total differences : " + totalDifferences);
-            System.out.println("================================");
 
-            for( Object difference : differences)
-            {
-                System.out.println(difference);
-            }
-
+    public static void output(Boolean bool){
+        if(bool) {
+            System.out.println(File1 + "not equals" + File2);
+        }else {
+            System.out.println(File1 + "equals" + File2);
         }
+        }
+
+
 
 }
 

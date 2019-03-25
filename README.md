@@ -2,7 +2,9 @@ Testing Framework
 ------------------------
 ------------------------
 ## Running features in IDE
+Run the file - regressions_testng.xml
 
+test case have been explianed under test() in tests.TestCase File
 
 
 ## Viewing the results
