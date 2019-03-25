@@ -7,9 +7,10 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class apiCompare {
+public class APIResponse {
 
-    public void getResponse(String stringurl) {
+    public String getResponse(String stringurl) {
+        String output = null;
         try {
 
             URL url = new URL(stringurl);
@@ -25,13 +26,15 @@ public class apiCompare {
             BufferedReader br = new BufferedReader(new InputStreamReader(
                     (conn.getInputStream())));
 
-            String output;
+
             System.out.println("Output from Server .... \n");
             while ((output = br.readLine()) != null) {
                 System.out.println(output);
             }
 
             conn.disconnect();
+
+            return output;
 
         } catch (MalformedURLException e) {
 
@@ -43,6 +46,7 @@ public class apiCompare {
 
         }
 
+        return output;
     }
 
 }

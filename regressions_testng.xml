@@ -2,7 +2,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Suite" parallel="none">
 
-    <parameter name="baseUrl" value="https://www.google.com"/>
+    <parameter name="baseUrl" value="https://www.tripadvisor.com/FAQ-g45963-d91703-Bellagio_Las_Vegas.html"/>
 
     <test name="Chrome Tests">
         <parameter name="browserName" value="Chrome"/>
@@ -13,7 +13,7 @@
         </groups>
 
         <classes>
-            <class name="tests.HomePageTests"></class>
+            <class name="tests.TestCase"></class>
         </classes>
     </test>
 

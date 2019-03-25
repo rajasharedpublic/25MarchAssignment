@@ -1,18 +1,27 @@
 package helper;
 
 import io.appium.java_client.remote.MobileCapabilityType;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.Test;
 import pages.HomePage;
 
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 public class Browser {
 
@@ -65,9 +74,78 @@ public class Browser {
         _driver.get(url);
     }
 
+    public void checkanswer() {
+
+
+
+    }
+
+
     public void navigateToBaseUrl() {
         _driver.get(getBaseUrl());
+        try {
+            Broken();
+
+
+
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        WebElement parent  = _driver.findElement(By.className("questionSection"));
+
+            WebElement Each_question_set;
+
+            List<WebElement> Each_answer_set;
+
+            List<WebElement> question  =  parent.findElements(By.xpath("//*[starts-with(@id,'question')]")); //11
+
+            int i = 0;
+            while (i < question.size()) {
+                    Each_question_set = question.get(i);
+                    System.out.println("Question has Answer ::"+i +":"+Each_question_set.getText());
+
+
+            i++;
+        }
+
+        System.out.println("--------------------------------");
+        System.out.println("--------------------------------");
+
     }
+
+
+    public void Broken() throws InterruptedException {
+
+        Map<Integer, List<String>> map = _driver.findElements(By.xpath("//*[@href]"))
+                .stream()                             // find all elements which has href attribute & process one by one
+                .map(ele -> ele.getAttribute("href")) // get the value of href
+                .map(String::trim)                    // trim the text
+                .distinct()                           // there could be duplicate links , so find unique
+                .collect(Collectors.groupingBy(Browser::getResponseCode)); // group the links based on the response code
+
+
+    }
+
+    // hits the given url and returns the HTTP response code
+    public static int getResponseCode(String link) {
+        URL url;
+        HttpURLConnection con = null;
+        Integer responsecode = 0;
+        try {
+            url = new URL(link);
+            con = (HttpURLConnection) url.openConnection();
+            responsecode = con.getResponseCode();
+        } catch (Exception e) {
+            // skip
+        } finally {
+            if (null != con)
+                con.disconnect();
+        }
+        return responsecode;
+    }
+
 
     public String getBrowser() {
         return this.browserName;
