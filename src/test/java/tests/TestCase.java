@@ -15,7 +15,7 @@ public class TestCase extends TestHelper {
     Browser browser;
     helper.ReadFile ReadFile;
     APIResponse apiCompare;
-    helper.compareUtil compareUtil = new compareUtil();
+    //helper.compareUtil compareUtil = new compareUtil();
     APIResponse APIResponse;
 
     @Parameters({"browserName", "baseUrl"})
